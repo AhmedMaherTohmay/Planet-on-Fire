@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Prediction</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Wildfire Prediction</h1>
+    <form id="prediction-form">
+        <label for="temp">Temperature:</label>
+        <input type="range" id="temp" name="temp" min="0" max="100" step="0.1" value="50">
+        <span id="temp-value">50</span><br>
+
+        <label for="humidity">Humidity:</label>
+        <input type="range" id="humidity" name="humidity" min="0" max="100" step="0.1" value="50">
+        <span id="humidity-value">50</span><br>
+
+        <label for="precip">Precipitation:</label>
+        <input type="range" id="precip" name="precip" min="0" max="1" step="0.01" value="0.5">
+        <span id="precip-value">0.5</span><br>
+
+        <label for="windspeed">Windspeed:</label>
+        <input type="range" id="windspeed" name="windspeed" min="0" max="100" step="0.1" value="50">
+        <span id="windspeed-value">50</span><br>
+
+        <label for="winddir">Wind Direction:</label>
+        <input type="range" id="winddir" name="winddir" min="0" max="360" step="1" value="180">
+        <span id="winddir-value">180</span><br>
+
+        <button type="submit">Predict</button>
+    </form>
+    <p id="prediction-result"></p>
+
+    <script>
+        $(document).ready(function () {
+            $('input[type="range"]').on('input', function () {
+                var id = $(this).attr('id');
+                $('#' + id + '-value').text($(this).val());
+            });
+
+            $('#prediction-form').on('submit', function (event) {
+                event.preventDefault();
+                var formData = {
+                    temp: parseFloat($('#temp').val()),
+                    humidity: parseFloat($('#humidity').val()),
+                    precip: parseFloat($('#precip').val()),
+                    windspeed: parseFloat($('#windspeed').val()),
+                    winddir: parseFloat($('#winddir').val())
+                };
+
+                $.ajax({
+                    url: '/predict',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        $('#prediction-result').text('Predicted total land area burnt by wildfires: ' + response.prediction + "%");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
