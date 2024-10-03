@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;700&display=swap");
+
+/* Basic CSS for the body */
+
+:root {
+  --dark-purple-1: #1c0b19;
+  --dark-purple-2: #180c34;
+  --dark-purple-3: #140d4f;
+  --blue-1: #233462;
+  --blue-2: #315a74;
+  --teal-1: #4ea699;
+  --teal-2: #3ebf8d;
+  --green-1: #36cc87;
+  --green-2: #2dd881;
+  --light-green-1: #4ee39c;
+  --light-green-2: #6fedb7;
+  --mint-green-1: #8cf1c5;
+  --mint-green-2: #7cefbe;
+  --light-black-1: #33333389;
+}
+
+body {
+  line-height: 1.6;
+  font-family: "El Messiri", sans-serif; /* Apply El Messiri as the default font */
+}
+
+#background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* transform: translate(-50%, -50%); // Center the video */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+#background-video {
+  /* border-radius: 20px; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  max-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: fill;
+  /* padding: 10px; */
+  image-rendering: auto;
+}
+.blurred-background {
+  position: relative;
+  width: 100%; /* Adjust based on your layout */
+  /* height: 100vh; Full height background */
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2); /* Optional: semi-transparent white */
+  backdrop-filter: blur(10px); /* The actual blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-radius: 15px; /* Optional: rounded corners */
+  z-index: 1; /* Make sure it stays behind the content */
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  color: white; /* Adjust text color for readability */
+  font-size: 2rem;
+}
