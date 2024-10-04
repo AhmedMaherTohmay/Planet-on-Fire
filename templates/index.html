@@ -58,7 +58,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
                     success: function (response) {
-                        $('#prediction-result').text('Predicted total land area burnt by wildfires: ' + response.prediction + "%");
+                        $('#prediction-result').text(response.prediction);
                     }
                 });
             });

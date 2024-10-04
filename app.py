@@ -30,6 +30,11 @@ def prepare_model(real_test):
     prediction_actual = scaler.inverse_transform(np.concatenate((np.zeros((prediction.shape[0], real_test.shape[1]-1)), prediction), axis=1))[:, -1]
     return prediction_actual[-1]
 
+def classes(value):
+    lower = (value // 5) * 5
+    upper = lower + 5
+    return lower, upper
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -44,7 +49,11 @@ def predict():
         global real_test  # Declare as global to modify it
         real_test = pd.concat([real_test, new_df], ignore_index=True)
         prediction = abs(prepare_model(real_test).round(2)) * 100
-        return jsonify({'prediction': prediction})
+        lower , upper = classes(prediction)
+        prefixed = "the total area burnt is ranged from " + str(lower)
+        postfixed = "% to " + str(upper) + "%"
+        pred = prefixed + postfixed
+        return jsonify({'prediction': pred})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
